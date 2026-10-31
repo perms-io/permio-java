@@ -285,7 +285,7 @@ skips with a notice when the secret is not set.
 
 ## Generated code and proto updates
 
-The public protos from [PrivateJAR/proto](https://github.com/PrivateJAR/proto) are vendored in
+The public protos from [perms-io/proto](https://github.com/perms-io/proto) are vendored in
 `src/main/proto/proto/{permissions,organisation,pagination}/v1/` (never `internal.proto`), and the
 Java classes are generated at build time by the `com.google.protobuf` Gradle plugin (protoc and
 `protoc-gen-grpc-java`, versions pinned in `gradle/libs.versions.toml`). `.proto-version` records
@@ -294,7 +294,7 @@ the proto release and commit they came from.
 To move to a new proto release:
 
 ```bash
-git clone git@github.com:PrivateJAR/proto.git /tmp/proto && git -C /tmp/proto checkout v0.0.19
+git clone git@github.com:perms-io/proto.git /tmp/proto && git -C /tmp/proto checkout v0.0.19
 scripts/sync-protos.sh /tmp/proto v0.0.19
 ./gradlew build
 ```

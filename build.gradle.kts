@@ -174,7 +174,7 @@ mavenPublishing {
         name = "Permio Java SDK"
         description = "Java client for the perms.io permissions API."
         inceptionYear = "2026"
-        url = "https://github.com/PrivateJAR/permio-java"
+        url = "https://github.com/perms-io/permio-java"
         licenses {
             license {
                 name = "Apache-2.0"
@@ -184,23 +184,23 @@ mavenPublishing {
         }
         organization {
             name = "PrivateJAR"
-            url = "https://github.com/PrivateJAR"
+            url = "https://github.com/perms-io"
         }
         issueManagement {
             system = "GitHub"
-            url = "https://github.com/PrivateJAR/permio-java/issues"
+            url = "https://github.com/perms-io/permio-java/issues"
         }
         developers {
             developer {
                 id = "PrivateJAR"
                 name = "PrivateJAR"
-                url = "https://github.com/PrivateJAR"
+                url = "https://github.com/perms-io"
             }
         }
         scm {
-            url = "https://github.com/PrivateJAR/permio-java"
-            connection = "scm:git:https://github.com/PrivateJAR/permio-java.git"
-            developerConnection = "scm:git:ssh://git@github.com/PrivateJAR/permio-java.git"
+            url = "https://github.com/perms-io/permio-java"
+            connection = "scm:git:https://github.com/perms-io/permio-java.git"
+            developerConnection = "scm:git:ssh://git@github.com/perms-io/permio-java.git"
         }
     }
 }
