@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Refreshes the vendored public protos in src/main/proto from a PrivateJAR/proto
+# Refreshes the vendored public protos in src/main/proto from a perms-io/proto
 # checkout, then records the release they came from in .proto-version (the same
 # format permio-js uses).
 #
-#   git clone https://github.com/PrivateJAR/proto /tmp/proto && git -C /tmp/proto checkout v0.0.18
+#   git clone https://github.com/perms-io/proto /tmp/proto && git -C /tmp/proto checkout v0.0.18
 #   scripts/sync-protos.sh /tmp/proto v0.0.18
 #
 # CI (.github/workflows/generated.yml) checks out the commit pinned in
@@ -18,7 +18,7 @@
 # which also provide the matching Java classes.
 set -euo pipefail
 
-SRC="${1:?path to a PrivateJAR/proto checkout}"
+SRC="${1:?path to a perms-io/proto checkout}"
 VERSION="${2:?proto release, e.g. v0.0.18}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEST="$ROOT/src/main/proto"
@@ -44,9 +44,9 @@ copy proto/organisation/v1/organisation.proto io.perms.proto.organisation.v1 Org
 copy proto/pagination/v1/pagination.proto io.perms.proto.pagination.v1 PaginationProto
 COMMIT="$(git -C "$SRC" rev-parse HEAD)"
 cat > "$ROOT/.proto-version" <<PIN
-# The PrivateJAR/proto release that src/main/proto is copied from.
+# The perms-io/proto release that src/main/proto is copied from.
 # Written by scripts/sync-protos.sh; checked by CI (generated.yml).
 version=${VERSION}
 commit=${COMMIT}
 PIN
-echo "Vendored PrivateJAR/proto ${VERSION} into src/main/proto"
+echo "Vendored perms-io/proto ${VERSION} into src/main/proto"

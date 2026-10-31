@@ -40,7 +40,7 @@ jobs:
         if: steps.pin.outputs.enabled == 'true'
         uses: useblacksmith/checkout@v1
         with:
-          repository: PrivateJAR/proto
+          repository: perms-io/proto
           ref: ${{ steps.pin.outputs.commit }}
           ssh-key: ${{ secrets.PROTO_DEPLOY_KEY }}
           path: .proto-src
@@ -52,6 +52,6 @@ jobs:
           scripts/sync-protos.sh .proto-src "${{ steps.pin.outputs.version }}"
           rm -rf .proto-src
           if ! git diff --exit-code -- src/main/proto .proto-version; then
-            echo "::error::src/main/proto does not match PrivateJAR/proto ${{ steps.pin.outputs.version }}; run scripts/sync-protos.sh"
+            echo "::error::src/main/proto does not match perms-io/proto ${{ steps.pin.outputs.version }}; run scripts/sync-protos.sh"
             exit 1
           fi

@@ -1,4 +1,4 @@
-# The PrivateJAR/proto release that src/main/proto is copied from.
+# The perms-io/proto release that src/main/proto is copied from.
 # Written by scripts/sync-protos.sh; checked by CI (generated.yml).
 version=v0.0.18
 commit=5dd4eb929d0b2bcd291c8d6ef693a23ceb61efae
