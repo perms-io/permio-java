@@ -19,7 +19,7 @@ Gradle:
 
 ```kotlin
 dependencies {
-    implementation("io.perms:permio:0.1.0")
+    implementation("io.perms:permio:0.2.0")
 }
 ```
 
@@ -29,7 +29,7 @@ Maven:
 <dependency>
   <groupId>io.perms</groupId>
   <artifactId>permio</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
@@ -41,7 +41,7 @@ the client picks up whichever transport is on the classpath:
 
 ```kotlin
 dependencies {
-    implementation("io.perms:permio:0.1.0") {
+    implementation("io.perms:permio:0.2.0") {
         exclude(group = "io.grpc", module = "grpc-netty-shaded")
     }
     implementation("io.grpc:grpc-okhttp:1.85.1") // match the SDK's gRPC version
@@ -52,7 +52,7 @@ dependencies {
 <dependency>
   <groupId>io.perms</groupId>
   <artifactId>permio</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <exclusions>
     <exclusion>
       <groupId>io.grpc</groupId>
