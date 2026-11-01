@@ -4,7 +4,7 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
 [Semantic Versioning](https://semver.org/).
 
-## [0.2.0] - Unreleased
+## [0.2.0] - 2026-11-01
 
 ### Removed
 - **Breaking:** `Permio.DEV_BASE_URL` is removed. Pass the URL of a non-production environment to
@@ -14,8 +14,9 @@ All notable changes to this project are documented here. The format follows
 - The live integration tests require `PERMIO_BASE_URL` and are skipped when it is not set. Their
   host allowlist is loopback, `*.localhost`, `*.test` and any `*.perms.io` host except production
   (`api.perms.io`).
+- Fuller Maven Central (POM) description; README intro and badges. Release steps moved to `RELEASING.md`.
 
-## [Unreleased]
+## [0.1.0] - 2026-10-30
 
 Fixes from the pre-release review. The SDK is not published yet, so the API changes below are
 made without a deprecation period.
@@ -37,7 +38,6 @@ made without a deprecation period.
   `LIKE` wildcards); it recommends a literal starts-with test.
 
 ### Changed
-- Fuller Maven Central (POM) description; README intro and badges. Release steps moved to `RELEASING.md`.
 - `*Async` methods run on a bounded pool of `Permio.DEFAULT_ASYNC_THREADS` (8) daemon threads
   instead of an unbounded cached pool; pass `Builder.executor(...)` to size it yourself.
 - `batchCheck` / `batchCheckDetailed` keep at most 4 chunk requests in flight.
@@ -54,8 +54,6 @@ made without a deprecation period.
   `deleteAsync`, `addMembersAsync`, `removeMembersAsync`.
 - README: excluding `grpc-netty-shaded` for Android / OkHttp.
 - POM: organization and issue tracker.
-
-## [0.1.0] - Unreleased
 
 First release of the Java SDK, matching permio-js (including its grant/revoke/whoAmI and
 Retry-After work).
