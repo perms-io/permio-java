@@ -21,13 +21,12 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 
 /**
- * Integration test against a real deployment. Skipped unless PERMIO_API_KEY is set. PERMIO_BASE_URL
- * defaults to the development API ({@link Permio#DEV_BASE_URL}), and the test refuses to run
- * against production because it writes. The key needs full access to its project (PERMIO_PROJECT,
- * default: the key's project from whoAmI):
+ * Integration test against a real deployment. Skipped unless both PERMIO_API_KEY and
+ * PERMIO_BASE_URL are set, and it refuses to run against production because it writes. The key
+ * needs full access to its project (PERMIO_PROJECT, default: the key's project from whoAmI):
  *
  * <pre>
- *   PERMIO_API_KEY=perms_... ./gradlew integrationTest
+ *   PERMIO_API_KEY=perms_... PERMIO_BASE_URL=https://... ./gradlew integrationTest
  * </pre>
  *
  * <p>Everything it creates uses fixed IDs prefixed "sdk-it-java" and is removed before and after
@@ -50,15 +49,15 @@ class LiveIntegrationTest {
   private static final String OTHER = ROOT + "/other";
 
   private final String apiKey = System.getenv("PERMIO_API_KEY");
-  private final String baseUrl = envOr("PERMIO_BASE_URL", Permio.DEV_BASE_URL);
+  private final String baseUrl = System.getenv("PERMIO_BASE_URL");
   private Permio permio;
   private String project;
 
   /**
-   * The test writes, so it runs only against an allowlist of non-production hosts: the dev API,
-   * loopback, and the reserved {@code .localhost} / {@code .test} names. The URL is parsed, so
-   * tricks like {@code https://api.perms.io#dev-api.perms.io} or {@code
-   * https://dev-api.perms.io@api.perms.io} do not pass.
+   * The test writes, so it runs only against an allowlist of non-production hosts: loopback, the
+   * reserved {@code .localhost} / {@code .test} names, and {@code *.perms.io} hosts other than
+   * production ({@code api.perms.io}). The URL is parsed, so tricks like {@code
+   * https://api.perms.io#x.perms.io} or {@code https://x.perms.io@api.perms.io} do not pass.
    */
   static boolean isAllowedTarget(String baseUrl) {
     URI uri;
@@ -86,28 +85,27 @@ class LiveIntegrationTest {
     if (host.endsWith(".")) {
       host = host.substring(0, host.length() - 1);
     }
-    return host.equals("dev-api.perms.io")
-        || host.equals("localhost")
+    return host.equals("localhost")
         || host.equals("127.0.0.1")
         || host.equals("[::1]")
         || host.equals("::1")
         || (host.endsWith(".localhost") && host.length() > ".localhost".length())
-        || (host.endsWith(".test") && host.length() > ".test".length());
-  }
-
-  private static String envOr(String name, String fallback) {
-    String v = System.getenv(name);
-    return v == null || v.isEmpty() ? fallback : v;
+        || (host.endsWith(".test") && host.length() > ".test".length())
+        || (host.endsWith(".perms.io")
+            && host.length() > ".perms.io".length()
+            && !host.equals("api.perms.io"));
   }
 
   @BeforeAll
   void setUp() {
     assumeTrue(apiKey != null && !apiKey.isEmpty(), "PERMIO_API_KEY is not set");
+    assumeTrue(baseUrl != null && !baseUrl.isEmpty(), "PERMIO_BASE_URL is not set");
     assumeTrue(
         isAllowedTarget(baseUrl),
         "refusing to run the integration tests against "
             + baseUrl
-            + ": only dev-api.perms.io, localhost and *.localhost / *.test hosts are allowed");
+            + ": only localhost, *.localhost / *.test and non-production *.perms.io hosts are"
+            + " allowed");
     try (Permio probe = Permio.builder().apiKey(apiKey).baseUrl(baseUrl).build()) {
       String fromEnv = System.getenv("PERMIO_PROJECT");
       project =

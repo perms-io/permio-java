@@ -87,9 +87,6 @@ public final class Permio implements AutoCloseable {
   /** Production API. */
   public static final String DEFAULT_BASE_URL = "https://api.perms.io";
 
-  /** Development API. */
-  public static final String DEV_BASE_URL = "https://dev-api.perms.io";
-
   /** Environment variable read when no API key is given. */
   public static final String API_KEY_ENV = "PERMIO_API_KEY";
 
@@ -1306,7 +1303,7 @@ public final class Permio implements AutoCloseable {
    * <pre>{@code
    * Permio permio = Permio.builder()
    *     .apiKey(System.getenv("PERMIO_API_KEY")) // the default when not set
-   *     .baseUrl(Permio.DEV_BASE_URL)             // default: production
+   *     .baseUrl("https://permio.example.test")   // default: production
    *     .project("my-app")
    *     .timeout(Duration.ofSeconds(5))           // per attempt; default 10 s
    *     .retries(3)                               // idempotent reads only; default 2
@@ -1337,8 +1334,7 @@ public final class Permio implements AutoCloseable {
 
     /**
      * API base URL: {@code https://host[:port]} (TLS) or {@code http://host[:port]} (plaintext, for
-     * local testing). Defaults to production, {@link #DEFAULT_BASE_URL}; use {@link #DEV_BASE_URL}
-     * for development.
+     * local testing). Defaults to production, {@link #DEFAULT_BASE_URL}.
      */
     public Builder baseUrl(String baseUrl) {
       this.baseUrl = baseUrl;

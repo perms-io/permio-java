@@ -80,7 +80,7 @@ shutdown. A denied check returns `false`; it is not an error.
 ```java
 Permio permio = Permio.builder()
     .apiKey("perms_...")              // default: the PERMIO_API_KEY environment variable
-    .baseUrl(Permio.DEV_BASE_URL)     // default: Permio.DEFAULT_BASE_URL (production)
+    .baseUrl("https://...")           // default: Permio.DEFAULT_BASE_URL (production)
     .project("my-app")                // default project_name for every helper
     .timeout(Duration.ofSeconds(5))   // per attempt; default 10 s, Duration.ZERO disables it
     .listTimeout(Duration.ofSeconds(30)) // per list page attempt; default: timeout
@@ -263,9 +263,9 @@ Raw requests need `project_name` set explicitly, and raw errors are plain
 
 ## Dev vs prod
 
-`Permio.DEFAULT_BASE_URL` (`https://api.perms.io`) is production and the default.
-`Permio.DEV_BASE_URL` (`https://dev-api.perms.io`) is the development API. API keys belong to one
-project in one environment.
+`Permio.DEFAULT_BASE_URL` (`https://api.perms.io`) is production and the default. To target
+another environment, pass its URL to `baseUrl(...)`. API keys belong to one project in one
+environment.
 
 ## Integration tests
 
@@ -277,17 +277,17 @@ Unit tests run against in-process gRPC servers:
 ```
 
 The live suite (`src/test/java/io/perms/LiveIntegrationTest.java`, JUnit tag `integration`)
-mirrors permio-js `test/live.test.ts`. It is skipped unless `PERMIO_API_KEY` is set, targets
-`PERMIO_BASE_URL` (default: dev) and refuses to run against production. It needs a full-access
+mirrors permio-js `test/live.test.ts`. It is skipped unless both `PERMIO_API_KEY` and
+`PERMIO_BASE_URL` are set, and refuses to run against production. It needs a full-access
 key; the project is `PERMIO_PROJECT` or the key's own. It creates and removes fixed IDs prefixed
 `sdk-it-java`.
 
 ```bash
-PERMIO_API_KEY=perms_... ./gradlew integrationTest
+PERMIO_API_KEY=perms_... PERMIO_BASE_URL=https://... ./gradlew integrationTest
 ```
 
-In CI the `integration` job runs it with the `PERMIO_DEV_API_KEY` secret, one run at a time, and
-skips with a notice when the secret is not set.
+In CI the `integration` job runs it with the `PERMIO_DEV_API_KEY` and `PERMIO_DEV_BASE_URL`
+secrets, one run at a time, and skips with a notice when either secret is not set.
 
 ## Generated code and proto updates
 

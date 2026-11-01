@@ -4,6 +4,17 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] - Unreleased
+
+### Removed
+- **Breaking:** `Permio.DEV_BASE_URL` is removed. Pass the URL of a non-production environment to
+  `Builder.baseUrl(...)` instead.
+
+### Changed
+- The live integration tests require `PERMIO_BASE_URL` and are skipped when it is not set. Their
+  host allowlist is loopback, `*.localhost`, `*.test` and any `*.perms.io` host except production
+  (`api.perms.io`).
+
 ## [Unreleased]
 
 Fixes from the pre-release review. The SDK is not published yet, so the API changes below are
@@ -32,7 +43,7 @@ made without a deprecation period.
 - `batchCheck` / `batchCheckDetailed` keep at most 4 chunk requests in flight.
 - `PermioException.code()` returns the SDK's own `ErrorCode` enum; the gRPC code moved to
   `grpcCode()`.
-- The live integration tests run only against an allowlist of hosts (`dev-api.perms.io`,
+- The live integration tests run only against an allowlist of hosts (the development API,
   loopback, `*.localhost`, `*.test`), checked on the parsed URL.
 
 ### Added
@@ -51,7 +62,7 @@ Retry-After work).
 
 ### Added
 - `Permio` client with a builder: API key (or `PERMIO_API_KEY`) with local format and checksum
-  validation, base URL (`DEFAULT_BASE_URL`, `DEV_BASE_URL`), default project, per-attempt timeout,
+  validation, base URL (`DEFAULT_BASE_URL` and a constant for the development API), default project, per-attempt timeout,
   retry policy, injectable channel and executor.
 - `check`, `checkAll`, `checkAny`, `checkDetailed`, `assertAllowed`, `batchCheck`,
   `batchCheckDetailed`, `listAccess` (`AccessScopes`), `whoHasAccess`, `grant`, `revoke`, `whoAmI`,
