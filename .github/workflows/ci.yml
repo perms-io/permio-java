@@ -67,13 +67,13 @@ jobs:
       group: permio-java-integration
       cancel-in-progress: false
     steps:
-      - name: Check for the API key
+      - name: Check for the API key and base URL
         id: key
         env:
-          HAS_KEY: ${{ secrets.PERMIO_DEV_API_KEY != '' }}
+          HAS_KEY: ${{ secrets.PERMIO_DEV_API_KEY != '' && secrets.PERMIO_DEV_BASE_URL != '' }}
         run: |
           if [ "$HAS_KEY" != "true" ]; then
-            echo "::notice::PERMIO_DEV_API_KEY is not set; skipping the live integration tests."
+            echo "::notice::PERMIO_DEV_API_KEY or PERMIO_DEV_BASE_URL is not set; skipping the live integration tests."
           fi
           echo "enabled=$HAS_KEY" >> "$GITHUB_OUTPUT"
       - if: steps.key.outputs.enabled == 'true'
@@ -88,5 +88,5 @@ jobs:
         if: steps.key.outputs.enabled == 'true'
         env:
           PERMIO_API_KEY: ${{ secrets.PERMIO_DEV_API_KEY }}
-          PERMIO_BASE_URL: https://dev-api.perms.io
+          PERMIO_BASE_URL: ${{ secrets.PERMIO_DEV_BASE_URL }}
         run: ./gradlew --no-daemon integrationTest
