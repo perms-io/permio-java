@@ -172,7 +172,8 @@ mavenPublishing {
     coordinates(project.group.toString(), "permio", project.version.toString())
     pom {
         name = "Permio Java SDK"
-        description = "Official Java SDK for perms.io: hosted RBAC and fine-grained authorization (permission checks) for multi-tenant apps."
+        description =
+            "Official Java SDK for perms.io: hosted RBAC and fine-grained authorization (permission checks) for multi-tenant apps."
         inceptionYear = "2026"
         url = "https://github.com/perms-io/permio-java"
         licenses {
