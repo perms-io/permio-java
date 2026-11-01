@@ -26,6 +26,7 @@ made without a deprecation period.
   `LIKE` wildcards); it recommends a literal starts-with test.
 
 ### Changed
+- Fuller Maven Central (POM) description; README intro and badges. Release steps moved to `RELEASING.md`.
 - `*Async` methods run on a bounded pool of `Permio.DEFAULT_ASYNC_THREADS` (8) daemon threads
   instead of an unbounded cached pool; pass `Builder.executor(...)` to size it yourself.
 - `batchCheck` / `batchCheckDetailed` keep at most 4 chunk requests in flight.
