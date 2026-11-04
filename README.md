@@ -3,6 +3,10 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.perms/permio)](https://central.sonatype.com/artifact/io.perms/permio)
 [![License](https://img.shields.io/github/license/perms-io/permio-java)](LICENSE)
 
+**[Permio](https://perms.io) is hosted authorization for your app: RBAC and fine-grained permission checks on hierarchical resources, for multi-tenant SaaS.**
+
+[Website](https://perms.io) · [Java SDK docs](https://docs.perms.io/sdk/java/) · [Quickstart](https://docs.perms.io/quickstart/) · [Dashboard](https://app.perms.io)
+
 The official Java SDK for [perms.io](https://perms.io), a hosted authorization service for RBAC
 and fine-grained, resource-level permissions in multi-tenant apps. Use it to check whether a user
 may perform an action on a resource, grant and revoke roles and permissions, manage groups, and
@@ -64,6 +68,9 @@ dependencies {
 
 ## Quick start
 
+Create an API key in the [dashboard](https://app.perms.io) (project > **API Keys**) and export it as
+`PERMIO_API_KEY`, then:
+
 ```java
 import io.perms.Permio;
 
@@ -74,6 +81,8 @@ try (Permio permio = Permio.builder().project("my-app").build()) { // API key fr
 
 A `Permio` is thread-safe and owns a gRPC channel: create one at startup, share it, close it at
 shutdown. A denied check returns `false`; it is not an error.
+
+**Next:** the [Java SDK guide](https://docs.perms.io/sdk/java/) covers configuration, filtering lists by access, groups and errors in depth, and [how Permio works](https://docs.perms.io/how-it-works/) explains resources, roles and inheritance.
 
 ## Configuration
 
