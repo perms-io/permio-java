@@ -175,7 +175,7 @@ mavenPublishing {
         description =
             "Official Java SDK for perms.io: hosted RBAC and fine-grained authorization (permission checks) for multi-tenant apps."
         inceptionYear = "2026"
-        url = "https://github.com/perms-io/permio-java"
+        url = "https://perms.io"
         licenses {
             license {
                 name = "Apache-2.0"
@@ -184,8 +184,8 @@ mavenPublishing {
             }
         }
         organization {
-            name = "PrivateJAR"
-            url = "https://github.com/perms-io"
+            name = "perms.io"
+            url = "https://perms.io"
         }
         issueManagement {
             system = "GitHub"
@@ -193,8 +193,8 @@ mavenPublishing {
         }
         developers {
             developer {
-                id = "PrivateJAR"
-                name = "PrivateJAR"
+                id = "perms-io"
+                name = "perms.io"
                 url = "https://github.com/perms-io"
             }
         }
